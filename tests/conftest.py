@@ -1,5 +1,7 @@
 import pytest
 import asyncio
+from typing import AsyncGenerator, Any
+
 
 from uuid import UUID
 from store.db.mongo import db_client
@@ -33,7 +35,7 @@ async def clear_collections(mongo_client):
 
 
 @pytest.fixture
-async def client() -> AsyncClient:
+async def client() -> AsyncGenerator[AsyncClient, Any]:
     from store.main import app
 
     async with AsyncClient(app=app, base_url="http://test") as ac:
